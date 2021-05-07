@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNpbW8iLCJpZCI6IjVjZTY2Mzk4NGE5M2YwMWVhNTlmYjc5NiIsImlhdCI6MTU1ODY4NzU5MH0.KIJC0g07e1iWk7DIVGp6QSqFK94VPTR1OczpW9o3OWw
+
+{
+	"title": "books to read",
+	"author": "",
+	"url": "www://films.html",
+	"likes": 4
+}
