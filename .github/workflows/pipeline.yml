@@ -31,8 +31,12 @@ jobs:
           SECRET: ${{ secrets.SECRET }}
       - name: deployment to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: blogs-pipeline
           heroku_email: lauri.kyttala@gmail.com
+          healthcheck: https://blogs-pipeline.herokuapp.com/health
+          checkstring: "ok"
+          delay: 5
+          rollbackonhealthcheckfailed: true
