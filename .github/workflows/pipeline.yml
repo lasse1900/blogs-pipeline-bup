@@ -40,3 +40,10 @@ jobs:
           checkstring: "ok"
           delay: 5
           rollbackonhealthcheckfailed: true
+      - uses: 8398a7/action-slack@v3
+        if: ${{ github.event_name == 'push' && ( success() || failure() ) }}
+        with:
+          status: ${{ job.status }}
+          fields: message,commit,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
