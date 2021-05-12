@@ -28,8 +28,15 @@ app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
-// here I'm gonna add healthCheck
-// just one comment for testing tags
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+
+app.get('/version', (req, res) => {
+  res.send('1') // change this string to ensure a new version deployed
+  // testing
+})
+
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
