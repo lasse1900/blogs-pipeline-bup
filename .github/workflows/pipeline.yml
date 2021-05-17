@@ -40,11 +40,12 @@ jobs:
           checkstring: "ok"
           delay: 5
           rollbackonhealthcheckfailed: true
-      # - name: heroku push success, send status to slack
-      #   uses: 8398a7/action-slack@v3.9.0
-      #   with:
-      #     status: ${{ job.status }}
-      #     fields: repo, commit, took, message, author
-      #   env:
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #   if: ${{ success() }}
+      - name: heroku push success, send status to slack
+        uses: 8398a7/action-slack@v3
+        if: ${{ github.event_name == 'push'}}
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took # selectable (default: repo,message)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
